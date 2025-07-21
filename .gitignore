@@ -7,18 +7,77 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
 
-# Editor directories and files
+# Dependencies
+node_modules/
+jspm_packages/
+
+# Production builds
+dist/
+dist-ssr/
+build/
+
+# Environment variables (IMPORTANT: Don't commit API keys!)
+.env.development
+
+
+# Cache directories
+.cache/
+.parcel-cache/
+.vscode-test/
+
+# IDE files
 .vscode/*
 !.vscode/extensions.json
-.idea
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Testing
+coverage/
+*.lcov
+.nyc_output/
+
+# TypeScript
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Temporary folders
+tmp/
+temp/
+
+# Runtime files
+*.local
+
+# Editor backup files
+*~
+.#*
+\#*#
+.#*
+.*.swp
+.*.swo
+
+# Google Flights Clone specific
+/public/assets/temp/
+/src/assets/temp/
