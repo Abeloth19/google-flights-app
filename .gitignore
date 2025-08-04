@@ -23,7 +23,7 @@ dist-ssr/
 build/
 
 # Environment variables (IMPORTANT: Don't commit API keys!)
-.env.development
+.env
 
 
 # Cache directories

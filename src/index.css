@@ -1,35 +1,294 @@
-/* Google Fonts - Essential for authentic Google Flights look */
-@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
-
-/* Tailwind CSS imports */
+@import url("https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Base layer - Global defaults */
-@layer base {
-  * {
-    box-sizing: border-box;
+/* CSS Variables for bzceval theme compatibility */
+:root {
+  /* Light theme (bzceval lightTheme) */
+  --bg-default: #ffffff;
+  --text-primary: #202124;
+  --bg-secondary: #ffffff;
+  --text-secondary: #70757a;
+  --btn-color: #90caf9;
+  --border-color: #dadce0;
+  --primary-blue: #1a73e8;
+}
+
+/* Dark theme (bzceval darkTheme) */
+.dark {
+  --bg-default: #202124;
+  --text-primary: #e8eaed;
+  --bg-secondary: #3a3b3f;
+  --text-secondary: #9aa0a6;
+  --btn-color: #90caf9;
+  --border-color: #5f6368;
+  --primary-blue: #8ab4f8;
+}
+
+/* Base styles with YOUR Google Flights fonts (not bzceval's) */
+body {
+  margin: 0;
+  font-family: "Google Sans", "Roboto", "Arial", sans-serif; /* Using YOUR font config */
+  background-color: var(--bg-default);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom component classes */
+@layer components {
+  /* Theme-aware background and text colors */
+  .bg-theme-default {
+    background-color: var(--bg-default);
   }
   
-  html {
-    scroll-behavior: smooth;
+  .bg-theme-secondary {
+    background-color: var(--bg-secondary);
   }
   
-  body {
-    @apply bg-gray-50 text-gray-900 font-google antialiased;
-    font-feature-settings: "rlig" 1, "calt" 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  .text-theme-primary {
+    color: var(--text-primary);
   }
   
-  /* Focus styles to match Google */
-  input:focus,
-  button:focus,
-  select:focus,
-  textarea:focus {
-    @apply outline-none ring-2 ring-google-blue ring-opacity-50;
+  .text-theme-secondary {
+    color: var(--text-secondary);
+  }
+  
+  .border-theme {
+    border-color: var(--border-color);
+  }
+  
+  .bg-theme-button {
+    background-color: var(--btn-color);
+  }
+  
+  .text-theme-blue {
+    color: var(--primary-blue);
+  }
+
+  /* Additional theme utilities */
+  .theme-transition {
+    @apply transition-colors duration-300;
+  }
+
+  /* Loading spinner matching MUI CircularProgress */
+  .loading-spinner {
+    @apply inline-block w-8 h-8 border-4 rounded-full animate-spin;
+    border-color: var(--border-color);
+    border-top-color: var(--primary-blue);
+  }
+  
+  .loading-spinner-large {
+    @apply inline-block w-12 h-12 border-4 rounded-full animate-spin;
+    border-color: var(--border-color);
+    border-top-color: var(--primary-blue);
+  }
+
+  /* Google Flights inspired components */
+  .flight-card {
+    @apply bg-white rounded-google shadow-google hover:shadow-google-lg transition-shadow duration-200 border border-gray-200;
+  }
+  
+  .flight-card.dark {
+    @apply bg-gray-800 border-gray-700;
+  }
+  
+  .search-input {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-google focus:outline-none focus:ring-2 focus:ring-google-blue focus:border-transparent;
+  }
+  
+  .search-input.dark {
+    @apply bg-gray-800 border-gray-600 text-white;
+  }
+  
+  .btn-primary {
+    @apply px-6 py-3 bg-google-blue text-white rounded-google font-medium hover:bg-google-blue-hover transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-google-blue focus:ring-opacity-50;
+  }
+  
+  .btn-secondary {
+    @apply px-6 py-3 bg-white text-google-blue border border-google-blue rounded-google font-medium hover:bg-blue-50 transition-colors duration-200;
+  }
+  
+  .btn-secondary.dark {
+    @apply bg-gray-800 text-google-blue border-gray-600 hover:bg-gray-700;
+  }
+  
+  /* Navbar specific styles */
+  .navbar-button {
+    @apply p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200;
+  }
+
+  /* Footer specific styles */
+  .footer-chip {
+    @apply inline-flex items-center px-3 py-2 rounded-full border border-theme bg-theme-default hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200;
+  }
+
+  .footer-link {
+    @apply text-google-blue hover:text-google-blue-hover hover:underline transition-colors text-sm font-medium;
+  }
+
+  /* Home page and search component styles */
+  .search-dropdown {
+    @apply absolute top-full left-0 right-0 mt-1 bg-theme-secondary border border-theme rounded-md shadow-lg z-20 max-h-60 overflow-y-auto;
+  }
+
+  .search-dropdown-item {
+    @apply w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-700 theme-transition first:rounded-t-md last:rounded-b-md;
+  }
+
+  .passenger-menu {
+    @apply absolute top-full left-0 mt-1 bg-theme-secondary border border-theme rounded-md shadow-lg z-20 p-4 min-w-[280px];
+  }
+
+  .counter-button {
+    @apply w-8 h-8 rounded-md border flex items-center justify-center theme-transition;
+  }
+
+  .counter-button:enabled {
+    @apply border-theme hover:bg-gray-100 dark:hover:bg-gray-700 text-theme-primary;
+  }
+
+  .counter-button:disabled {
+    @apply border-gray-300 dark:border-gray-600 text-theme-secondary cursor-not-allowed;
+  }
+
+  /* Date picker custom styling */
+  input[type="date"] {
+    @apply appearance-none;
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    @apply opacity-0 cursor-pointer;
+  }
+
+  /* Flight results page styles */
+  .flight-card {
+    @apply bg-theme-secondary rounded-lg border border-theme hover:border-blue-400 transition-all duration-200 hover:shadow-md;
+  }
+
+  .flight-card.best-value {
+    @apply border-blue-500 shadow-lg ring-2 ring-blue-500 ring-opacity-20;
+  }
+
+  /* Range slider custom styling */
+  input[type="range"] {
+    @apply appearance-none h-2 bg-gray-200 dark:bg-gray-700 rounded-lg cursor-pointer;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    @apply appearance-none h-4 w-4 bg-blue-600 rounded-full cursor-pointer border-0 shadow-md;
+  }
+
+  input[type="range"]::-webkit-slider-thumb:hover {
+    @apply bg-blue-700;
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    @apply h-4 w-4 bg-blue-600 rounded-full cursor-pointer border-0 shadow-md;
+  }
+
+  input[type="range"]::-moz-range-thumb:hover {
+    @apply bg-blue-700;
+  }
+
+  /* Filter section styling */
+  .filter-section {
+    @apply space-y-3 pb-4 border-b border-theme last:border-b-0;
+  }
+
+  .filter-section h4 {
+    @apply font-medium text-theme-primary flex items-center gap-2;
+  }
+
+  /* Checkbox and radio custom styling */
+  input[type="checkbox"], input[type="radio"] {
+    @apply text-blue-600 focus:ring-blue-500 focus:ring-2 focus:ring-opacity-50 rounded;
+  }
+
+  /* Smooth transitions for all interactive elements */
+  .theme-transition {
+    @apply transition-all duration-300 ease-in-out;
+  }
+
+  /* Leaflet map styling */
+  .leaflet-container {
+    @apply rounded-lg;
+  }
+
+  .leaflet-popup-content-wrapper {
+    @apply bg-theme-secondary border border-theme rounded-lg shadow-lg;
+  }
+
+  .leaflet-popup-content {
+    @apply text-theme-primary;
+  }
+
+  .leaflet-popup-tip {
+    @apply bg-theme-secondary border-theme;
+  }
+
+  /* Dark mode leaflet controls */
+  .dark .leaflet-control-zoom a {
+    @apply bg-gray-800 border-gray-600 text-white;
+  }
+
+  .dark .leaflet-control-zoom a:hover {
+    @apply bg-gray-700;
+  }
+
+  /* Chip hover animations */
+  .airport-chip {
+    @apply transform transition-all duration-200 hover:scale-105 hover:shadow-lg;
+  }
+
+  /* Loading animations for nearby airports */
+  @keyframes pulse-blue {
+    0%, 100% { 
+      opacity: 1;
+      background-color: rgb(59 130 246);
+    }
+    50% { 
+      opacity: 0.7;
+      background-color: rgb(96 165 250);
+    }
+  }
+
+  .pulse-blue {
+    animation: pulse-blue 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 }
 
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* React Toastify dark theme override */
+.Toastify__toast--dark {
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Leaflet map dark theme support */
+.dark .leaflet-container {
+  background: var(--bg-default);
+}
+
+.dark .leaflet-popup-content-wrapper {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
